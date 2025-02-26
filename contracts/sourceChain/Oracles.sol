@@ -86,7 +86,10 @@ contract AxelarBridgeDebug is AxelarExecutable {
     event ReceivedAttestation(bytes commP, string sourceAddress);
     //tracks whether a command has already been executed using the executedCommands mapping.
     mapping(bytes32 => bool) public executedCommands; 
-    constructor(address _gateway) AxelarExecutable(_gateway) {}
+    // constructor(address _gateway) AxelarExecutable(_gateway) {}
+    function initialize(address _gateway) public initializer{
+        __AxelarExecutable_init(_gateway);
+    }
     function _execute(
         bytes32 commandId,
         string calldata,
@@ -117,7 +120,10 @@ contract AxelarBridge is AxelarExecutable {
     );
     using StringToAddress for string;
 
-    constructor(address _gateway) AxelarExecutable(_gateway) {}
+    // constructor(address _gateway) AxelarExecutable(_gateway) {}
+    function initialize(address _gateway) public initializer{
+        __AxelarExecutable_init(_gateway);
+    }
 
     function setSenderReceiver(address sender_, address receiver_) external {
         receiver = receiver_;

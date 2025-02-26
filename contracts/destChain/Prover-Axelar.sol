@@ -25,7 +25,7 @@ contract DealClientAxl is AxelarExecutable {
     using AccountCBOR for *;
     using MarketCBOR for *;
 
-    IAxelarGasService public immutable gasService;
+    IAxelarGasService public  gasService;
     uint64 public constant AUTHENTICATE_MESSAGE_METHOD_NUM = 2643134072;
     uint64 public constant DATACAP_RECEIVER_HOOK_METHOD_NUM = 3726118371;
     uint64 public constant MARKET_NOTIFY_DEAL_METHOD_NUM = 4186741094;
@@ -95,13 +95,11 @@ contract DealClientAxl is AxelarExecutable {
     );
     event ReceivedDataCap(string received);
 
-    constructor(
-            address _gateway,
-            address _gasReceiver
-    ) AxelarExecutable(_gateway) {
-        gasService = IAxelarGasService(_gasReceiver);
-    }
-    function 
+    function initialize(address _gateway, address _gasReceiver) public initializer{
+        __AxelarExecutable_init(_gateway);
+         gasService = IAxelarGasService(_gasReceiver);
+    } 
+
 
     function setDestinationChains(
         uint[] calldata chainIds,
